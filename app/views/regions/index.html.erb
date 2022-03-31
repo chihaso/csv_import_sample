@@ -1,0 +1,30 @@
+<h1>地方一覧</h1>
+
+<table border="5" rules="none">
+  <tr>
+    <th>地方</th>
+    <th>都道府県</th>
+    <th>市区町村</th>
+  </tr>
+  <% @regions.each do |region| %>
+    <tr>
+      <td><%= region.name %></td>
+      <td></td>
+      <td></td>
+      <% region.prefectures.each do |prefecture| %>
+        <tr>
+          <td></td>
+          <td><%= prefecture.name %></td>
+          <td></td>
+        </tr>
+        <% prefecture.municipalities.each do |municipality| %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td><%= municipality.name %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
