@@ -5,6 +5,9 @@
     <th>地方</th>
     <th>都道府県</th>
     <th>市区町村</th>
+    <% @all_years.each do |year| %>
+      <th><%= year %>年</th>
+    <% end %>
   </tr>
   <% @regions.each do |region| %>
     <tr>
@@ -22,6 +25,9 @@
             <td></td>
             <td></td>
             <td><%= municipality.name %></td>
+            <% @all_years.each do |year| %>
+              <td><%= municipality.populations.find { _1.year == year }&.value || '-' %></td>
+            <% end %>
           </tr>
         <% end %>
       <% end %>
