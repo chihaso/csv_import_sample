@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_31_112130) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_01_122956) do
   create_table "municipalities", force: :cascade do |t|
     t.string "name", null: false
     t.integer "prefecture_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["prefecture_id"], name: "index_municipalities_on_prefecture_id"
+  end
+
+  create_table "populations", force: :cascade do |t|
+    t.integer "year", null: false
+    t.integer "value", null: false
+    t.integer "municipality_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["municipality_id"], name: "index_populations_on_municipality_id"
   end
 
   create_table "prefectures", force: :cascade do |t|
