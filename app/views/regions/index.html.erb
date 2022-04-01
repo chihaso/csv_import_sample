@@ -14,11 +14,17 @@
       <td><%= region.name %></td>
       <td></td>
       <td></td>
+      <% @all_years.each do |year| %>
+        <td><%= region.population_as_of(year) || '-' %></td>
+      <% end %>
       <% region.prefectures.each do |prefecture| %>
         <tr>
           <td></td>
           <td><%= prefecture.name %></td>
           <td></td>
+          <% @all_years.each do |year| %>
+            <td><%= prefecture.population_as_of(year) || '-' %></td>
+          <% end %>
         </tr>
         <% prefecture.municipalities.each do |municipality| %>
           <tr>
@@ -26,7 +32,7 @@
             <td></td>
             <td><%= municipality.name %></td>
             <% @all_years.each do |year| %>
-              <td><%= municipality.populations.find { _1.year == year }&.value || '-' %></td>
+              <td><%= municipality.population_as_of(year) || '-' %></td>
             <% end %>
           </tr>
         <% end %>
