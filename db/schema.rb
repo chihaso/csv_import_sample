@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_01_122956) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_02_070715) do
   create_table "municipalities", force: :cascade do |t|
     t.string "name", null: false
     t.integer "prefecture_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_01_122956) do
     t.integer "municipality_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["municipality_id", "year"], name: "index_populations_on_municipality_id_and_year", unique: true
     t.index ["municipality_id"], name: "index_populations_on_municipality_id"
   end
 
