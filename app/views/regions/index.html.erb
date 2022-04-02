@@ -20,7 +20,7 @@
       <td></td>
       <td></td>
       <% @all_years.each do |year| %>
-        <td><%= region.population_as_of(year) || '-' %></td>
+        <td class="numeric-cell"><%= region.population_as_of(year).to_formatted_s(:delimited) || '-' %></td>
       <% end %>
       <% region.prefectures.each do |prefecture| %>
         <tr>
@@ -28,7 +28,7 @@
           <td><%= prefecture.name %></td>
           <td></td>
           <% @all_years.each do |year| %>
-            <td><%= prefecture.population_as_of(year) || '-' %></td>
+            <td class="numeric-cell"><%= prefecture.population_as_of(year).to_formatted_s(:delimited) || '-' %></td>
           <% end %>
         </tr>
         <% prefecture.municipalities.each do |municipality| %>
@@ -37,7 +37,7 @@
             <td></td>
             <td><%= municipality.name %></td>
             <% @all_years.each do |year| %>
-              <td><%= municipality.population_as_of(year) || '-' %></td>
+              <td class="numeric-cell"><%= municipality.population_as_of(year).to_formatted_s(:delimited) || '-' %></td>
             <% end %>
           </tr>
         <% end %>

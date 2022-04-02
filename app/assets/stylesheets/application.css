@@ -35,3 +35,7 @@ th, td {
 th {
   border-bottom: solid 2px;
 }
+
+td.numeric-cell {
+  text-align: right;
+}
