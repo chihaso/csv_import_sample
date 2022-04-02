@@ -1,13 +1,17 @@
 class PopulationsController < ApplicationController
   def upload
-    populations_csv = params[:populations]
-
-    if populations_csv.nil?
-      flash[:alert] = 'csvファイルを指定してください'
-    elsif populations_csv.content_type != 'text/csv'
-      flash[:alert] = 'csvファイル以外はアップロードできません'
-    end
-    
+    csv_importer.update_populations
+    flash[:alert] = joined_error_messages(csv_importer)
     redirect_to root_path
+  end
+
+  private
+
+  def csv_importer
+    @csv_importer ||= Population::Csv::Importer.new(csv: params[:populations_csv])
+  end
+
+  def joined_error_messages(csv_importer)
+    csv_importer.errors.full_messages&.join('<br>')
   end
 end

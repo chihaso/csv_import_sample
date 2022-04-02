@@ -1,7 +1,7 @@
 <h1>月毎の人口</h1>
 
 <%= form_with url: "/populations", multipart: true do |form| %>
-  <%= file_field_tag :populations %>
+  <%= file_field_tag :populations_csv %>
   <%= form.submit "アップロードする" %>
 <% end %>
 

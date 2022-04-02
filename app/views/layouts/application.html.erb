@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <p id="alert"><%= alert %></p> 
+    <p id="alert"><%= sanitize(alert, tags: ['br']) %></p> 
     <%= yield %>
   </body>
 </html>
