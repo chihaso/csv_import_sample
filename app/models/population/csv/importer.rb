@@ -1,5 +1,6 @@
 class Population::Csv::Importer
   require 'csv'
+  require 'nkf'
   include ActiveModel::Model
   include ActiveModel::Attributes
   include ActiveModel::Validations
@@ -31,7 +32,7 @@ class Population::Csv::Importer
   private
 
   def parser
-    @parser ||= Parser.new(CSV.read(csv, headers: true))
+    @parser ||= Parser.new(CSV.read(csv, headers: true, encoding: "#{original_encoding}UTF-8"))
   end
 
   def csv_present?
@@ -48,5 +49,10 @@ class Population::Csv::Importer
     parser.error_messages.each do |message|
       errors.add(:base, message)
     end
+  end
+
+  def original_encoding
+    encoding = NKF.guess(File.read(csv)).to_s
+    encoding == 'UTF-8' ? 'BOM|' : "#{encoding}:"
   end
 end
