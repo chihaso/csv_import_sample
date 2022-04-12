@@ -9,7 +9,8 @@ bin/setup
 ```
 
 ## 取り込めるCSVファイルのサンプル
-sample.csv
+[sample.csv](https://github.com/chihaso/csv_import_sample/blob/main/sample.csv)
+（プロジェクトルートにおいてあります）
 
 ## 備考
 - あらかじめ登録された市区町村のデータのみ受付けます。
