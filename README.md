@@ -8,6 +8,14 @@ CSVファイルを取り込んでDBにデータを保存するサンプルアプ
 bin/setup
 ```
 
+### 注意
+上記だけだとseedデータ（地方、都道府県、市区町村のデータ）が登録されない場合がある模様です。
+その場合は、改めて
+```
+bin/rails db:seed
+```
+を実行してください。
+
 ## 取り込めるCSVファイルのサンプル
 [sample.csv](https://github.com/chihaso/csv_import_sample/blob/main/sample.csv)
 （プロジェクトルートにおいてあります）
