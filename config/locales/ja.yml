@@ -1,0 +1,32 @@
+ja:
+  activerecord:
+    models:
+      region: 地方
+      prefecture: 都道府県
+      municipality: 市区町村
+      population: 人口
+    attributes:
+      region:
+        name: 地方名
+      prefecture:
+        name: 都道府県名
+      municipality:
+        name: 市区町村
+      population:
+        year: 年
+        value: 人口
+  activemodel:
+    attributes:
+      population/csv/importer:
+          csv: CSVファイル
+    errors:
+      models:
+        population/csv/importer:
+          attributes:
+            csv:
+              blank: が選択されていません
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: を入力してください
+      not_a_number: は数値で入力してください
