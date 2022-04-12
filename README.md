@@ -1,24 +1,17 @@
 # README
+CSVファイルを取り込んでDBにデータを保存するサンプルアプリです。
+各市区町村の年ごとの人口データを取り込み、画面上に表示します。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## セットアップ方法
+`git clone`等でコードをダウンロード後、下記のコマンドを実行してください
+```sh
+bin/setup
+```
 
-Things you may want to cover:
+## 取り込めるCSVファイルのサンプル
+sample.csv
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 備考
+- あらかじめ登録された市区町村のデータのみ受付けます。
+- CSVの中に不備（値が抜けている 、数値であるべきところが文字になっている、など）がある場合、どこのフィールドが間違っているかを表示します。
+- CSV読み込み部分(app/models/population/csv/配下)以外はかなり適当です・・・。
