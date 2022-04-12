@@ -46,32 +46,67 @@ RSpec.describe Population::Csv::Importer::Parser, type: :model do
       it 'upsert用の配列を返す' do
         is_expected.to eq(
           [
-            { municipality_id: municipality_1.id, year: 2000, value: 1000000 },
-            { municipality_id: municipality_1.id, year: 2001, value: 1200000 },
-            { municipality_id: municipality_1.id, year: 2002, value: 900000 },
-            { municipality_id: municipality_2.id, year: 2000, value: 500000 },
-            { municipality_id: municipality_2.id, year: 2001, value: 2000000 },
-            { municipality_id: municipality_2.id, year: 2002, value: 3000000 },
-            { municipality_id: municipality_3.id, year: 2000, value: 1000000 },
-            { municipality_id: municipality_3.id, year: 2001, value: 1200000 },
-            { municipality_id: municipality_3.id, year: 2002, value: 900000 },
-            { municipality_id: municipality_4.id, year: 2000, value: 500000 },
-            { municipality_id: municipality_4.id, year: 2001, value: 2000000 },
-            { municipality_id: municipality_4.id, year: 2002, value: 3000000 },
-            { municipality_id: municipality_5.id, year: 2000, value: 1000 },
-            { municipality_id: municipality_5.id, year: 2001, value: 2000 },
-            { municipality_id: municipality_5.id, year: 2002, value: 3000 },
-            { municipality_id: municipality_6.id, year: 2000, value: 4000 },
-            { municipality_id: municipality_6.id, year: 2001, value: 5000 },
-            { municipality_id: municipality_6.id, year: 2002, value: 6000 },
-            { municipality_id: municipality_7.id, year: 2000, value: 7000 },
-            { municipality_id: municipality_7.id, year: 2001, value: 8000 },
-            { municipality_id: municipality_7.id, year: 2002, value: 9000 },
-            { municipality_id: municipality_8.id, year: 2000, value: 10000 },
-            { municipality_id: municipality_8.id, year: 2001, value: 11000 },
-            { municipality_id: municipality_8.id, year: 2002, value: 12000 },
+            { municipality_id: municipality_1.id, year: 2000, value: '1000000' },
+            { municipality_id: municipality_1.id, year: 2001, value: '1200000' },
+            { municipality_id: municipality_1.id, year: 2002, value: '900000' },
+            { municipality_id: municipality_2.id, year: 2000, value: '500000' },
+            { municipality_id: municipality_2.id, year: 2001, value: '2000000' },
+            { municipality_id: municipality_2.id, year: 2002, value: '3000000' },
+            { municipality_id: municipality_3.id, year: 2000, value: '1000000' },
+            { municipality_id: municipality_3.id, year: 2001, value: '1200000' },
+            { municipality_id: municipality_3.id, year: 2002, value: '900000' },
+            { municipality_id: municipality_4.id, year: 2000, value: '500000' },
+            { municipality_id: municipality_4.id, year: 2001, value: '2000000' },
+            { municipality_id: municipality_4.id, year: 2002, value: '3000000' },
+            { municipality_id: municipality_5.id, year: 2000, value: '1000' },
+            { municipality_id: municipality_5.id, year: 2001, value: '2000' },
+            { municipality_id: municipality_5.id, year: 2002, value: '3000' },
+            { municipality_id: municipality_6.id, year: 2000, value: '4000' },
+            { municipality_id: municipality_6.id, year: 2001, value: '5000' },
+            { municipality_id: municipality_6.id, year: 2002, value: '6000' },
+            { municipality_id: municipality_7.id, year: 2000, value: '7000' },
+            { municipality_id: municipality_7.id, year: 2001, value: '8000' },
+            { municipality_id: municipality_7.id, year: 2002, value: '9000' },
+            { municipality_id: municipality_8.id, year: 2000, value: '10000' },
+            { municipality_id: municipality_8.id, year: 2001, value: '11000' },
+            { municipality_id: municipality_8.id, year: 2002, value: '12000' },
           ]
         )
+        expect(parser.error_messages).to eq []
+      end
+    end
+
+    context '誤りのあるCSVデータを受け取った時' do
+      let(:csv) do
+        csv_str = <<~CSV
+          地方,都道府県,市区町村,2000年,2001年,2002年
+          あああ地方,,,3000000,6400000,780000
+          ,いいい県,,1500000,3200000,
+          ,,ううう市,,1200000,900000
+          ,,えええ区,500000,2000000,3000000
+          ,おおお都,,1500000,3200000,390000
+          ,,,1000000,1200000,900000
+          ,,ききき村,500000,2000000,3000000
+          くくく地方,,,22000,26000,30000
+          ,けけけ府,,5000,7000,9000
+          ,,こここ市,1000,ほげほげ,3000
+          ,,さささ市,4000,5000,6000
+          ,ししし道,,17000,19000,21000
+          ,,すすす市,7000,8000,9000
+          ,,せせせ市,10000,11000,12000
+          ,,そそそ市,0,0,0
+        CSV
+        CSV.new(csv_str, headers: true)
+      end
+
+      it '誤りのある箇所に基づくエラーメッセージを生成する' do
+        is_expected.to be nil
+        expect(parser.error_messages).to eq [
+          '4行目, 2000年の列: 人口を入力してください',
+          '7行目: 地方、都道府県、市区町村名が全て空白です',
+          '11行目, 2001年の列: 人口は数値で入力してください',
+          '16行目: 登録されていない地方、都道府県、市区町村のデータは入力できません',
+        ]
       end
     end
   end
