@@ -17,11 +17,11 @@ ja:
         value: 人口
   activemodel:
     attributes:
-      population/csv/importer:
-          csv: CSVファイル
+      population/csv_importer:
+        csv: CSVファイル
     errors:
       models:
-        population/csv/importer:
+        population/csv_importer:
           attributes:
             csv:
               blank: が選択されていません

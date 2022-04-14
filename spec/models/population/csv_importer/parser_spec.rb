@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Population::Csv::Importer::Parser, type: :model do
+RSpec.describe Population::CsvImporter::Parser, type: :model do
   describe '#data_for_upsert' do
     subject { parser.data_for_upsert }
 

@@ -1,4 +1,4 @@
-class Population::Csv::Importer
+class Population::CsvImporter
   require 'csv'
   require 'nkf'
   include ActiveModel::Model

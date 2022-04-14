@@ -8,7 +8,7 @@ class PopulationsController < ApplicationController
   private
 
   def csv_importer
-    @csv_importer ||= Population::Csv::Importer.new(csv: params[:populations_csv])
+    @csv_importer ||= Population::CsvImporter.new(csv: params[:populations_csv])
   end
 
   def joined_error_messages(csv_importer)

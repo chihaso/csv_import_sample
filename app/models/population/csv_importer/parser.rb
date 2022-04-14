@@ -1,4 +1,4 @@
-class Population::Csv::Importer::Parser
+class Population::CsvImporter::Parser
   MUNICIPALITY_INFO_COLUMNS = %w[municipalities.id regions.name prefectures.name municipalities.name]
 
   attr_reader :error_messages
